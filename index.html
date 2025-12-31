@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For Zeeshanu</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: #ffd6e8;
+  color: #7a003e;
+  overflow: hidden;
+}
+
+/* HEART BACKGROUND */
+#heart-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+}
+
+/* SINGLE HEART SHAPE */
+.heart {
+  --s: 26px;
+  position: absolute;
+  bottom: -60px;
+  width: var(--s);
+  height: var(--s);
+  background: #ff6f91;
+  transform: rotate(-45deg);
+  opacity: 0.6;
+  animation: floatUp linear forwards;
+}
+
+.heart::before,
+.heart::after {
+  content: "";
+  position: absolute;
+  width: var(--s);
+  height: var(--s);
+  background: inherit;
+  border-radius: 50%;
+}
+
+.heart::before {
+  top: calc(var(--s) * -0.5);
+  left: 0;
+}
+
+.heart::after {
+  left: calc(var(--s) * 0.5);
+  top: 0;
+}
+
+@keyframes floatUp {
+  from { transform: translateY(0) rotate(-45deg); opacity: 0.7; }
+  to { transform: translateY(-120vh) rotate(-45deg); opacity: 0; }
+}
+
+/* APP */
+#app {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+/* SECTIONS */
+.section {
+  position: absolute;
+  width: 100%;
+  max-width: 720px;
+  background:   rgba(255,245,250,0.96);
+  border-radius: 24px;
+  padding: 32px;
+  text-align: center;
+  box-shadow: 0 30px 80px rgba(255,0,90,0.25);
+  opacity: 0;
+  transform: translateY(20px);
+  pointer-events: none;
+  transition: all .6s ease;
+}
+
+.section.active {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* IMAGE PLACEHOLDER */
+.photo {
+  flex: 1;
+  height: 350px;
+  background: linear-gradient(135deg, #ffb3c6, #ffc8dd);
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #9d174d;
+  font-weight: 500;
+}
+
+/* SIDE-BY-SIDE PHOTOS */
+.photo-stack {
+  display: flex;
+  gap: 16px;
+  margin: 22px 0;
+}
+
+/* TEXT */
+p {
+  font-size: 1.05rem;
+  line-height: 1.9;
+  margin-bottom: 18px;
+}
+
+/* BUTTONS */
+.btn {
+  padding: 14px 38px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #ff4d6d, #c9184a);
+  color: #fff;
+  text-decoration: none;
+  box-shadow: 0 15px 40px rgba(201,24,74,.4);
+}
+
+.btn-back {
+  background: transparent;
+  border: 2px solid #c9184a;
+  color: #c9184a;
+  padding: 12px 30px;
+  border-radius: 999px;
+  font-size: 0.95rem;
+}
+
+.nav-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+/* OVERLAY */
+#overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(255, 214, 232, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  transition: opacity 0.8s ease;
+}
+
+.overlay-box {
+  text-align: center;
+  background: rgba(255, 245, 250, 0.95);
+  padding: 26px 32px;
+  border-radius: 20px;
+  box-shadow: 0 20px 50px rgba(201, 24, 74, 0.3);
+}
+
+#volumeHint {
+  opacity: 0;
+  margin-top: 14px;
+  font-size: 0.95rem;
+  transition: opacity 1s ease;
+}
+</style>
+</head>
+
+<body>
+
+<div id="overlay">
+  <div class="overlay-box">
+    <p>Tap anywhere to begin</p>
+    <p id="volumeHint">For best experience, increase volume</p>
+  </div>
+</div>
+
+<audio id="music" src="music/bg.mp3" autoplay loop muted></audio>
+<div id="heart-bg"></div>
+
+<div id="app">
+
+  <!-- HOME -->
+  <div class="section active">
+    <p>This is not a website. It’s something I made quietly, thinking about you. <br>
+      let anything happen i am not gonna change my wild cat🤭 <br>
+     Every word here exists because you matter to me,Zeeshan. <br>
+     <pre>                                      <b>made with lots of love by your hubby :<i>-Bunny</i></b>🐰</pre></p>
+    <div class="nav-buttons">
+      <a class="btn" onclick="next()">Click here</a>
+    </div>
+  </div>
+
+  <!-- LOVE -->
+  <div class="section">
+    <div class="photo-stack">
+      <img src="images/love.jpeg" class="photo">
+    </div>
+    <p>once i saw a girl with charming eyes and i fell for her!! <br>it's you my Love.😊 Loving you feels calm. It feels something i never felt before, <br>
+    You bring warmth into my life in ways you don’t notice. but belive me i am very much lucky to have you in my life. 😊 </p>
+    <div class="nav-buttons">
+      <a class="btn-back" onclick="prev()">Back</a>
+      <a class="btn" onclick="next()">Next</a>
+    </div>
+  </div>
+
+  <!-- TOGETHER -->
+  <div class="section">
+    <div class="photo-stack">
+        <img src="images/18.jpeg" class="photo">
+      <img src="images/changes.jpeg" class="photo">
+    </div>
+    <p>Since April 18-2023, till today life changed and we changed with it, but our love didn't changed it increased by time which i cant express in words.😊 <br>Just i wanted to tell you that i love you even today as i loved you on the frst moment i saw you, & i wanted to tell you that no matter what 
+    <br> <b>I will choose you — always.🫂</b></p>
+    <div class="nav-buttons">
+      <a class="btn-back" onclick="prev()">Back</a>
+      <a class="btn" onclick="next()">Next</a>
+    </div>
+  </div>
+
+  <!-- SUPPORT -->
+  <div class="section">
+    <div class="photo-stack">
+      <img src="images/18.2.jpeg" class="photo">
+      <img src="images/dr.jpeg" class="photo">
+    </div>
+    <p>Zeeshu, I know this path is not easy. <br>I'm literally blown away by your dedication even after so much you didn't gave up you still kept pushing that's insane!🔥</p>
+      <p>I'm so proud of you and I know this time's the one. Your hard work's gonna pay off<b> In Sha Allah </b> and I'll be right here cheering you on every step of the way.🥳
+    I believe in you deeply that you will be a dream doctor one day.☺️</p>
+    <div class="nav-buttons">
+      <a class="btn-back" onclick="prev()">Back</a>
+      <a class="btn" onclick="next()">Next</a>
+    </div>
+  </div>
+
+  <!-- FINAL -->
+  <div class="section">
+    <div class="photo-stack">
+      <img src="images/day1.jpeg" class="photo">
+      <img src="images/always.jpeg" class="photo">
+    </div>
+    <p>day-1 to day-365 it was hard but look even this has passed. and we are in another year... may this year bring you the joy of your life.🥰<br> your dreams will come true inshallah.☺️<br> <b>i wanted you to say me- Bunny i got selected. inshallah 🫂</b></p>
+    <p>No matter what comes next, i am not gonna leave your hand.<br> even after so many arguments we don't go as option we stay as our choice because we truly love eachother.🥰<br> Let whatever happens don’t forget <b> I’m here- Always.🫂</b> </p>
+
+    <div class="nav-buttons">
+      <a class="btn-back" onclick="prev()">Back</a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+/* MUSIC + OVERLAY */
+function startExperience() {
+  const audio = document.getElementById("music");
+  const overlay = document.getElementById("overlay");
+  const volumeHint = document.getElementById("volumeHint");
+
+  audio.muted = false;
+  audio.volume = 0.6;
+  audio.play().catch(() => {});
+
+  setTimeout(() => volumeHint.style.opacity = "1", 300);
+  setTimeout(() => {
+    overlay.style.opacity = "0";
+    setTimeout(() => overlay.remove(), 900);
+  }, 2600);
+
+  document.removeEventListener("click", startExperience);
+  document.removeEventListener("touchstart", startExperience);
+}
+
+document.addEventListener("click", startExperience);
+document.addEventListener("touchstart", startExperience);
+
+/* HEARTS */
+const bg = document.getElementById("heart-bg");
+setInterval(() => {
+  const h = document.createElement("div");
+  h.className = "heart";
+  h.style.setProperty("--s", (Math.random() * 14 + 18) + "px");
+  h.style.left = Math.random() * 100 + "vw";
+  h.style.animationDuration = (7 + Math.random() * 4) + "s";
+  bg.appendChild(h);
+  setTimeout(() => h.remove(), 12000);
+}, 500);
+
+/* SPA NAVIGATION */
+let index = 0;
+const sections = document.querySelectorAll(".section");
+
+function next() {
+  sections[index].classList.remove("active");
+  index = Math.min(index + 1, sections.length - 1);
+  sections[index].classList.add("active");
+}
+
+function prev() {
+  sections[index].classList.remove("active");
+  index = Math.max(index - 1, 0);
+  sections[index].classList.add("active");
+}
+</script>
+
+</body>
+</html>
