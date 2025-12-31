@@ -174,7 +174,7 @@ p {
   font-size: 0.95rem;
   transition: opacity 1s ease;
 }
-  /* MOBILE OPTIMIZATION */
+/* MOBILE OPTIMIZATION */
 @media (max-width: 600px) {
 
   /* Make sections breathe on small screens */
@@ -204,6 +204,18 @@ p {
   .btn-back {
     padding: 12px 26px;
     font-size: 0.9rem;
+  }
+}
+/* MOBILE: hide content until overlay is dismissed */
+@media (max-width: 600px) {
+  .section {
+    opacity: 0 !important;
+    pointer-events: none;
+  }
+
+  .section.active.reveal {
+    opacity: 1 !important;
+    pointer-events: auto;
   }
 }
 </style>
@@ -293,21 +305,36 @@ p {
 </div>
 
 <script>
-/* MUSIC + OVERLAY */
 function startExperience() {
   const audio = document.getElementById("music");
   const overlay = document.getElementById("overlay");
   const volumeHint = document.getElementById("volumeHint");
+  const activeSection = document.querySelector(".section.active");
 
   audio.muted = false;
   audio.volume = 0.6;
   audio.play().catch(() => {});
 
-  setTimeout(() => volumeHint.style.opacity = "1", 300);
+  // show volume hint
+  setTimeout(() => {
+    volumeHint.style.opacity = "1";
+  }, 300);
+
+  // remove overlay and reveal content
   setTimeout(() => {
     overlay.style.opacity = "0";
-    setTimeout(() => overlay.remove(), 900);
-  }, 2600);
+
+    setTimeout(() => {
+      overlay.remove();
+
+      // 🔑 reveal section ONLY after overlay is gone
+      if (activeSection) {
+        activeSection.classList.add("reveal");
+      }
+
+    }, 900);
+
+  }, 2200);
 
   document.removeEventListener("click", startExperience);
   document.removeEventListener("touchstart", startExperience);
@@ -315,36 +342,7 @@ function startExperience() {
 
 document.addEventListener("click", startExperience);
 document.addEventListener("touchstart", startExperience);
-
-/* HEARTS */
-const bg = document.getElementById("heart-bg");
-setInterval(() => {
-  const h = document.createElement("div");
-  h.className = "heart";
-  h.style.setProperty("--s", (Math.random() * 14 + 18) + "px");
-  h.style.left = Math.random() * 100 + "vw";
-  h.style.animationDuration = (7 + Math.random() * 4) + "s";
-  bg.appendChild(h);
-  setTimeout(() => h.remove(), 12000);
-}, 500);
-
-/* SPA NAVIGATION */
-let index = 0;
-const sections = document.querySelectorAll(".section");
-
-function next() {
-  sections[index].classList.remove("active");
-  index = Math.min(index + 1, sections.length - 1);
-  sections[index].classList.add("active");
-}
-
-function prev() {
-  sections[index].classList.remove("active");
-  index = Math.max(index - 1, 0);
-  sections[index].classList.add("active");
-}
 </script>
 
 </body>
 </html>
-
