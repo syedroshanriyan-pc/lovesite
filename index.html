@@ -174,6 +174,38 @@ p {
   font-size: 0.95rem;
   transition: opacity 1s ease;
 }
+  /* MOBILE OPTIMIZATION */
+@media (max-width: 600px) {
+
+  /* Make sections breathe on small screens */
+  .section {
+    padding: 20px;
+    max-height: calc(100vh - 32px);
+  }
+
+  /* Stack images vertically on mobile */
+  .photo-stack {
+    flex-direction: column;
+  }
+
+  /* Reduce image height for small screens */
+  .photo {
+    height: 160px;
+  }
+
+  /* Improve text readability */
+  p {
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+
+  /* Buttons easier to tap */
+  .btn,
+  .btn-back {
+    padding: 12px 26px;
+    font-size: 0.9rem;
+  }
+}
 </style>
 </head>
 
@@ -315,3 +347,4 @@ function prev() {
 
 </body>
 </html>
+
